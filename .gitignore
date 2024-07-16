@@ -5,3 +5,4 @@ __pycache__/
 *.env
 heat_wave_model.pkl
 scaler.pkl
+android-e489f-firebase-adminsdk-9zb83-01114e83ab.json
