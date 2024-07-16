@@ -10,13 +10,13 @@ from firebase_admin import credentials, messaging
 app = Flask(__name__)
 
 # Load the trained model and scaler
-model = joblib.load('C:/Users/ploke/heat_wave_model.pkl')
-scaler = joblib.load('C:/Users/ploke/scaler.pkl')  # Ensure you save the scaler during preprocessing
+model = joblib.load('heat_wave_model.pkl')
+scaler = joblib.load('scaler.pkl')  # Ensure you save the scaler during preprocessing
 
 # Initialize Firebase Admin SDK
 def initialize_firebase():
     if not firebase_admin._apps:
-        cred = credentials.Certificate("C:/Users/ploke/Music/android-e489f-firebase-adminsdk-9zb83-01114e83ab.json")
+        cred = credentials.Certificate("/etc/secrets/android-e489f-firebase-adminsdk-9zb83-01114e83ab.json")
         firebase_admin.initialize_app(cred)
 
 initialize_firebase()
