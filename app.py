@@ -10,8 +10,8 @@ from firebase_admin import credentials, messaging
 app = Flask(__name__)
 
 # Load the trained model and scaler
-model = joblib.load('heat_wave_model.pkl')
-scaler = joblib.load('scaler.pkl')  # Ensure you save the scaler during preprocessing
+model = joblib.load("heat_wave_model.pkl")
+scaler = joblib.load("scaler.pkl")  # Ensure you save the scaler during preprocessing
 
 # Initialize Firebase Admin SDK
 def initialize_firebase():
@@ -33,8 +33,8 @@ def send_fcm_notification(token, title, body):
     response = messaging.send(message)
     return response
 
-def fetch_live_weather(api_key, city):
-    url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
+def fetch_live_weather(api_key, latitude, longitude):
+    url = f'https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={api_key}&units=metric'
     response = requests.get(url)
     data = response.json()
     
@@ -52,13 +52,14 @@ def fetch_live_weather(api_key, city):
 def predict_live_heat_wave():
     data = request.get_json()
     api_key = data.get('api_key')
-    city = data.get('city')
+    latitude = data.get('latitude')
+    longitude = data.get('longitude')
     token = data.get('token')
     
-    if not api_key or not city or not token:
-        return jsonify({'error': 'Missing api_key, city, or token'}), 400
+    if not api_key or not latitude or not longitude or not token:
+        return jsonify({'error': 'Missing api_key, latitude, longitude, or token'}), 400
     
-    live_weather_data = fetch_live_weather(api_key, city)
+    live_weather_data = fetch_live_weather(api_key, latitude, longitude)
     
     features = ['MaxT', 'MinT', 'WindSpeed', 'Humidity', 'AvgT', 'heat_index']
     live_weather_df = pd.DataFrame([live_weather_data], columns=features)
