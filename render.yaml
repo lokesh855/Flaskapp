@@ -6,4 +6,4 @@ services:
     startCommand: gunicorn app:app
     envVars:
       - key: GOOGLE_APPLICATION_CREDENTIALS
-        value: android-e489f-firebase-adminsdk-9zb83-088889d4e9.json
+        value: /etc/secrets/android-e489f-firebase-adminsdk-9zb83-088889d4e9.json
