@@ -16,7 +16,7 @@ scaler = joblib.load("scaler.pkl")  # Ensure you save the scaler during preproce
 # Initialize Firebase Admin SDK
 def initialize_firebase():
     if not firebase_admin._apps:
-        cred = credentials.Certificate("/etc/secrets/android-e489f-firebase-adminsdk-9zb83-088889d4e9.json")
+        cred = credentials.Certificate("/etc/secrets/heatwave-a0d34-firebase-adminsdk-fbsvc-56e2731e95.json")
         firebase_admin.initialize_app(cred)
 
 initialize_firebase()
